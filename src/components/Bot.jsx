@@ -31,15 +31,7 @@ function Bot() {
       color="#fff"
       maxW="full"
     >
-      <Flex
-        w="full"
-        p="20px"
-        flexDir="column"
-        h="95vh"
-        borderLeft="1px solid #1DB1CB"
-        borderRight="1px solid #1DB1CB"
-        color="black"
-      >
+      <Flex w="full" p="20px" flexDir="column" h="95vh" color="black">
         {messages?.map((item, index) => (
           <Flex
             justifyContent={item?.from === "bot" ? "flex-end" : "flex-start"}
