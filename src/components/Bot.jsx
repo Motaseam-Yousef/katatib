@@ -18,10 +18,9 @@ function Bot() {
         onSubmit(text, setMessages, setText);
       }
     };
-    const element = buttonRef.current;
-    element.addEventListener("keydown", handleEnterEvent);
+    document.addEventListener("keydown", handleEnterEvent);
     return () => {
-      element.removeEventListener("keydown", handleEnterEvent);
+      document.removeEventListener("keydown", handleEnterEvent);
     };
   }, [setMessages, setText, text]);
   return (
