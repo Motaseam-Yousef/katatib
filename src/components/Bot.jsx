@@ -9,10 +9,21 @@ function Bot() {
 
   // refs
   const inputRef = useRef();
+  const buttonRef = useRef();
   // useEffects
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+    const handleEnterEvent = (e) => {
+      if (e.code === "Enter") {
+        onSubmit(text, setMessages, setText);
+      }
+    };
+    const element = buttonRef.current;
+    element.addEventListener("keydown", handleEnterEvent);
+    return () => {
+      element.removeEventListener("keydown", handleEnterEvent);
+    };
+  }, [setMessages, setText, text]);
   return (
     <Container
       display="flex"
@@ -57,7 +68,11 @@ function Bot() {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <Button w="5vw" onClick={() => onSubmit(text, setMessages, setText)}>
+        <Button
+          w="5vw"
+          ref={buttonRef}
+          onClick={() => onSubmit(text, setMessages, setText)}
+        >
           Send
         </Button>
       </Flex>
