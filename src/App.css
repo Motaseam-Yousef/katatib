@@ -1,0 +1,18 @@
+.text-box:after {
+    content: "";
+    position: absolute;
+    border-width: 10px 10px 10px 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent #F2F1F1; 
+}
+
+.text-bot:after {
+    right: -20px;
+    bottom: 10px;
+}
+
+.text-me:after {
+    transform: rotate(180deg);
+    left: -20px;
+    bottom: 10px;
+}

@@ -1,7 +1,8 @@
-import { Box, Button, Container, Flex, Input, Text } from "@chakra-ui/react";
+import { Container, Flex, Text } from "@chakra-ui/react";
 import CustomCard from "../components/CustomCard";
 import { useEffect, useState } from "react";
 import { handleStepper } from "../helper/handleStepper";
+import Bot from "../components/Bot";
 
 function ChatBot() {
   const [step, setStep] = useState(1);
@@ -40,12 +41,7 @@ function ChatBot() {
       </Flex>
     </Container>
   ) : (
-    <Container display="flex" minH="100vh" color="#fff" maxW="full">
-      <Flex alignSelf="flex-end" gap="1vw" h="5vh">
-        <Input backgroundColor="#F2F1F1" w="90vw" color="black" />
-        <Button w="7vw">Send</Button>
-      </Flex>
-    </Container>
+    <Bot />
   );
 }
 
