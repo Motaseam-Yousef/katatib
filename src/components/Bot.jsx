@@ -1,6 +1,7 @@
 import { Box, Button, Container, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { onSubmit } from "../helper/handleBotInputs";
+import TypeWriter from "typewriter-effect";
 
 function Bot() {
   // states
@@ -45,7 +46,15 @@ function Bot() {
               position="relative"
               className={`text-box text-${item?.from}`}
             >
-              <Text>{item?.message}</Text>
+              {item?.from === "me" ? (
+                <Text>{item?.message}</Text>
+              ) : (
+                <TypeWriter
+                  onInit={(typewriter) => {
+                    typewriter.typeString(item?.message).start();
+                  }}
+                />
+              )}
             </Box>
           </Flex>
         ))}

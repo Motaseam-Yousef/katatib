@@ -16,3 +16,7 @@
     left: -20px;
     bottom: 10px;
 }
+
+.Typewriter__cursor {
+    display: none;
+}
