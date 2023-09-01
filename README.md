@@ -18,7 +18,7 @@ To get a copy of this project up and running on your local machine, follow these
 
 1. Clone the repository:
     ```bash
-    git clone git@github.com:SHAI-AI/katatib.git
+    git clone git@github.com:Motaseam-Yousef/katatib.git
     ```
 
 2. Change directory to the project folder:
