@@ -13,7 +13,8 @@ from langchain.prompts import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-
+import base64
+from elevenlabs import generate
 # Initialize Flask
 app = Flask(__name__)
 
@@ -29,6 +30,8 @@ embed = OpenAIEmbeddings()
 reload_docs = Pinecone.from_existing_index("katatib", embedding=embed)
 llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name="gpt-3.5-turbo")
 chain = load_qa_chain(llm, chain_type="stuff")
+
+audio_path = r"./audio"
 
 @app.route('/ask', methods=['POST'])
 def ask_question():
@@ -55,8 +58,24 @@ amy other question please respond with "أنا هنا لمساعدتك بماد�
         
         chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
         response_content = chat_prompt.format_prompt().to_messages()[1].content
+
+        audio = generate(
+            text=response_content,
+            voice="Bella",
+            model="eleven_multilingual_v1"
+        )
+
+        try:
+            with open(os.path.join(audio_path, "res.mp3"), "wb") as f:
+                f.write(audio)
+        except:
+            print("can not save the audio")
         
-        return jsonify({"response": response_content})
+        with open('./audio/res.mp3', 'rb') as f:
+            mp3_data = f.read()
+            base64_audio = base64.b64encode(mp3_data).decode('utf-8')
+        
+        return jsonify({"response": response_content, "audio": base64_audio})
         
     except Exception as e:
         return jsonify({"error": str(e)}), 400
