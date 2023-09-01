@@ -1,10 +1,9 @@
-from langchain.document_loaders import UnstructuredPDFLoader, OnlinePDFLoader, PyPDFLoader
+from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
-from langchain.vectorstores import Chroma, Pinecone
+from langchain.vectorstores import Pinecone
 from langchain.embeddings.openai import OpenAIEmbeddings
 import pinecone
-import openai
 from langchain.llms import OpenAI
 from langchain.chains.question_answering import load_qa_chain
 
@@ -12,7 +11,7 @@ from dotenv import load_dotenv
 # get keys
 load_dotenv()
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
-PINECONE_API_KEY = os.environ.get('OPENAI_API_KEY')
+PINECONE_API_KEY = os.environ.get('PINECONE_API_KEY')
 PINECONE_API_ENV = os.environ.get('PINECONE_ENV') 
 
 # laod the data
@@ -24,17 +23,17 @@ texts = text_splitter.split_documents(data)
 
 # prepare the vector store
 pinecone.init(      
-	api_key='e0cc0ebe-6a71-4e03-b961-9661057a1391',      
-	environment='us-west1-gcp-free'      
+	api_key=PINECONE_API_KEY,      
+	environment=PINECONE_API_ENV    
 )      
 index = pinecone.Index('katatib')
 
 # embedding
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 
-docsearch = Pinecone.from_texts([t.page_content for t in texts], embeddings, index_name=index)
+docsearch = Pinecone.from_texts([t.page_content for t in texts], embeddings, index_name="katatib")
 
-llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY)
+llm = OpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name="gpt-4")
 chain = load_qa_chain(llm, chain_type="stuff")
 
 query = "ما هو الغلاف الجوي؟"
