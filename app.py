@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
-from dotenv import load_dotenv
+import logging
 import os
+from dotenv import load_dotenv
 import pinecone
 
 # Your custom imports
@@ -8,21 +9,19 @@ from langchain.vectorstores import Pinecone
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains.question_answering import load_qa_chain
 from langchain.chat_models import ChatOpenAI
-from langchain.prompts import (
-    ChatPromptTemplate,
-    SystemMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-)
-import base64
-from elevenlabs import generate
+
 # Initialize Flask
 app = Flask(__name__)
 
+from flask_cors import CORS
+
+CORS(app, origins=["https://katatib-dpujr07y1-motaseam-yousef.vercel.app", "https://katatib-git-dev-motaseam-yousef.vercel.app"])
+
 # Load environment variables
 load_dotenv()
-OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
-PINECONE_API_KEY = os.environ.get('PINECONE_API_KEY')
-PINECONE_API_ENV = os.environ.get('PINECONE_ENV')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
+PINECONE_API_ENV = os.getenv('PINECONE_ENV')
 
 # Initialize other modules
 pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_API_ENV)
@@ -31,54 +30,28 @@ reload_docs = Pinecone.from_existing_index("katatib", embedding=embed)
 llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name="gpt-3.5-turbo")
 chain = load_qa_chain(llm, chain_type="stuff")
 
-audio_path = r"./audio"
-
 @app.route('/ask', methods=['POST'])
 def ask_question():
     try:
+        if not request.json:
+            raise ValueError("Invalid JSON payload")
+
         query = request.json.get('query')
-        
+
+        if query is None:
+            raise ValueError("The 'query' field must not be empty.")
+
         # Execute your existing logic here
         docs = reload_docs.similarity_search(query)
         res = chain.run(input_documents=docs, question=query)
 
-        # Prepare the system and human templates
-        system_template = '''You are a geography teacher for ninth grade, and your focus is solely on the subject matter provided. 
-You answer questions related to this topics
-الغلاف الجوي
-العوامل المؤثرة في درجة حرارة الغلاف الجوي
-الغلاف الحيوي و مكوناته
+        logging.debug("Chain Run Response: %s", res)
+        logging.debug("Response Content: %s", res)
 
-sure the answer in Arabic langauge ONLY
+        return jsonify({"response": res})
 
-amy other question please respond with "أنا هنا لمساعدتك بمادة الجغرافيا الصف التاسع."'''
-        
-        system_message_prompt = SystemMessagePromptTemplate.from_template(system_template)
-        human_message_prompt = HumanMessagePromptTemplate.from_template(res)
-        
-        chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-        response_content = chat_prompt.format_prompt().to_messages()[1].content
-
-        audio = generate(
-            text=response_content,
-            voice="Bella",
-            model="eleven_multilingual_v1"
-        )
-
-        try:
-            with open(os.path.join(audio_path, "res.mp3"), "wb") as f:
-                f.write(audio)
-        except:
-            print("can not save the audio")
-        
-        with open('./audio/res.mp3', 'rb') as f:
-            mp3_data = f.read()
-            base64_audio = base64.b64encode(mp3_data).decode('utf-8')
-        
-        return jsonify({"response": response_content, "audio": base64_audio})
-        
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
