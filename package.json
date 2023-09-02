@@ -2,6 +2,7 @@
   "name": "hackthon",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://katatib-git-dev-motaseam-yousef.vercel.app",
   "dependencies": {
     "@chakra-ui/react": "^2.8.0",
     "axios": "^1.5.0",
