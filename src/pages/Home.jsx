@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Player, BigPlayButton } from "video-react";
-import Logo from "../assets/images/katatib-logo.png";
+import Logo from "../assets/images/logo.png";
 import mikiImage from "../assets/images/miki.png";
 import mikiIcon from "../assets/images/small-miki.png";
 import TeacherImage from "../assets/images/teacher.png";
@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "video-react/dist/video-react.css";
+import Footer from "../components/Footer";
 
 function Home() {
   // const { isOpen, onOpen, onClose } = useDisclosure();
@@ -136,7 +137,7 @@ function Home() {
             {/* Logo */}
             <Box>
               <Link href="/" fontSize="2xl" fontWeight="bold">
-                <Image src={Logo} />
+                <Image src={Logo} w="200px" h="100px" />
               </Link>
             </Box>
 
@@ -253,6 +254,7 @@ function Home() {
           <BigPlayButton position="center" />
         </Player>
       </Container>
+      <Footer />
     </>
   );
 }
