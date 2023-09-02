@@ -1,9 +1,7 @@
-export const handleCardClickd = (selectedCard, setStep, setData) => {
-  setStep((prev) => prev + 1);
-  setData((prev) => {
-    return {
-      ...prev,
-      title: selectedCard,
-    };
-  });
+import { handleActivate } from "./handleActivate";
+
+export const handleCardClickd = (selectedCard, setStep) => {
+  if (handleActivate(selectedCard)) {
+    setStep((prev) => prev + 1);
+  }
 };
