@@ -1,5 +1,4 @@
 import {
-  Center,
   Container,
   Modal,
   ModalOverlay,
@@ -20,7 +19,6 @@ import FeatureImg from "../assets/images/feature-1.png";
 import nextArrowImage from "../assets/images/arrow_forward_ios.png";
 import prevArrowImage from "../assets/images/arrow_back_ios.png";
 import videoPoster from "../assets/images/video-poster.png";
-import playButton from "../assets/images/play-button.png";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
