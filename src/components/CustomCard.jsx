@@ -1,7 +1,8 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { handleCardClickd } from "../helper/handleCardClicked";
+import { handleActivate } from "../helper/handleActivate";
 
-function CustomCard({ title, setData, setStep }) {
+function CustomCard({ title, setStep }) {
   return (
     <Flex
       justifyContent="center"
@@ -18,7 +19,9 @@ function CustomCard({ title, setData, setStep }) {
         background: "white",
         color: "#9AC945",
       }}
-      onClick={() => handleCardClickd(title, setStep, setData)}
+      onClick={() => handleCardClickd(title, setStep)}
+      filter={handleActivate(title) ? "" : "auto"}
+      blur={handleActivate(title) ? "" : "2px"}
     >
       <Text fontSize="30px" fontWeight="bold">
         {title}

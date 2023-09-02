@@ -6,7 +6,6 @@ import Bot from "../components/Bot";
 
 function ChatBot() {
   const [step, setStep] = useState(1);
-  const [data, setData] = useState({});
   const [cardInfo, setCardInfo] = useState({});
 
   useEffect(() => {
@@ -34,7 +33,6 @@ function ChatBot() {
           <CustomCard
             key={`${info} - ${step}`}
             title={info}
-            setData={setData}
             setStep={setStep}
           />
         ))}

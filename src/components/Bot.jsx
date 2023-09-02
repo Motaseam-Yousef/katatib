@@ -2,12 +2,10 @@ import { Box, Button, Container, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { onSubmit } from "../helper/handleBotInputs";
 import TypeWriter from "typewriter-effect";
-
 function Bot() {
   // states
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
-
   // refs
   const inputRef = useRef();
   const buttonRef = useRef();
@@ -32,7 +30,14 @@ function Bot() {
       color="#fff"
       maxW="full"
     >
-      <Flex w="full" p="20px" flexDir="column" h="95vh" color="black">
+      <Flex
+        w="full"
+        p="20px"
+        overflow="auto"
+        flexDir="column"
+        h="95vh"
+        color="black"
+      >
         {messages?.map((item, index) => (
           <Flex
             justifyContent={item?.from === "bot" ? "flex-end" : "flex-start"}

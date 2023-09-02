@@ -1,4 +1,6 @@
-export const onSubmit = (text, setMessages, setText) => {
+import { getAnswer } from "../api/chatbot";
+
+export const onSubmit = async (text, setMessages, setText) => {
   if (text) {
     setMessages((prev) => {
       return [
@@ -9,10 +11,21 @@ export const onSubmit = (text, setMessages, setText) => {
         },
         {
           from: "bot",
-          message: "TEST TEST TEST",
+          message: "",
         },
       ];
     });
     setText("");
+    const result = await getAnswer(text);
+    setMessages((prev) => {
+      const getAllWithoutEmpty = prev.slice(0, -1);
+      return [
+        ...getAllWithoutEmpty,
+        {
+          from: "bot",
+          message: result,
+        },
+      ];
+    });
   }
 };
