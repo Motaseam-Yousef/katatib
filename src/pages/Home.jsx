@@ -10,7 +10,6 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import { Player, BigPlayButton } from "video-react";
 import Logo from "../assets/images/logo.png";
 import mikiImage from "../assets/images/miki.png";
 import mikiIcon from "../assets/images/small-miki.png";
@@ -18,7 +17,6 @@ import TeacherImage from "../assets/images/teacher.png";
 import FeatureImg from "../assets/images/feature-1.png";
 import nextArrowImage from "../assets/images/arrow_forward_ios.png";
 import prevArrowImage from "../assets/images/arrow_back_ios.png";
-import videoPoster from "../assets/images/video-poster.png";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
