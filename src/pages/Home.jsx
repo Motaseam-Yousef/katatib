@@ -244,13 +244,14 @@ function Home() {
         </Box>
       </Container>
 
-      <Container maxW={"100%"} p={"0"}>
-        <Player
-          poster={videoPoster}
-          src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-        >
-          <BigPlayButton position="center" />
-        </Player>
+      <Container maxW="full" p={"0"}>
+        <iframe
+          src="https://www.veed.io/embed/914ec84a-f254-4c43-9654-a03c37be01e8"
+          width="100%"
+          height="600px"
+          title="[Scene- A classroom bustling with students, the te-720p-230901"
+          allowFullScreen
+        ></iframe>
       </Container>
       <Footer />
     </>
