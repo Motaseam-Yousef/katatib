@@ -8,7 +8,8 @@ function Bot() {
   const [messages, setMessages] = useState([
     {
       from: "me",
-      message: "الصف التاسع \n مادة جغرافيا  \n استاذ عمير",
+      message:
+        "الصف التاسع \n مادة جغرافيا  \n استاذ عمير \n :اقتراحات \n  ما هو الغلاف الجوي؟  \n اهميه الغلاف الجوي؟",
     },
   ]);
   // refs
