@@ -5,7 +5,12 @@ import TypeWriter from "typewriter-effect";
 function Bot() {
   // states
   const [text, setText] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      from: "me",
+      message: "الصف التاسع \n مادة جغرافيا  \n استاذ عمير",
+    },
+  ]);
   // refs
   const inputRef = useRef();
   const buttonRef = useRef();
@@ -50,9 +55,10 @@ function Bot() {
               p="10px"
               position="relative"
               className={`text-box text-${item?.from}`}
+              mb="10px"
             >
               {item?.from === "me" ? (
-                <Text>{item?.message}</Text>
+                <Text whiteSpace="pre-line">{item?.message}</Text>
               ) : (
                 <TypeWriter
                   onInit={(typewriter) => {
