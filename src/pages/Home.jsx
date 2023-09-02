@@ -10,7 +10,6 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-import { Player, BigPlayButton } from "video-react";
 import Logo from "../assets/images/logo.png";
 import mikiImage from "../assets/images/miki.png";
 import mikiIcon from "../assets/images/small-miki.png";
@@ -18,7 +17,6 @@ import TeacherImage from "../assets/images/teacher.png";
 import FeatureImg from "../assets/images/feature-1.png";
 import nextArrowImage from "../assets/images/arrow_forward_ios.png";
 import prevArrowImage from "../assets/images/arrow_back_ios.png";
-import videoPoster from "../assets/images/video-poster.png";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -244,13 +242,14 @@ function Home() {
         </Box>
       </Container>
 
-      <Container maxW={"100%"} p={"0"}>
-        <Player
-          poster={videoPoster}
-          src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-        >
-          <BigPlayButton position="center" />
-        </Player>
+      <Container maxW="full" p={"0"}>
+        <iframe
+          src="https://www.veed.io/embed/914ec84a-f254-4c43-9654-a03c37be01e8"
+          width="100%"
+          height="600px"
+          title="[Scene- A classroom bustling with students, the te-720p-230901"
+          allowFullScreen
+        ></iframe>
       </Container>
       <Footer />
     </>
